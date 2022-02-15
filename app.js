@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-// const date=require(__dirname+"/date.js");
 const _ =require("lodash");
 const app = express();
 
@@ -28,11 +27,11 @@ const item1=new Item({
 });
 
 const item2=new Item({
-  name:"Hit the + button to get started."
+  name:"Hit the + button to get started!"
 });
 
 const item3=new Item({
-  name:"<-- Hit this delete an item."
+  name:"👈🏻 Hit this to delete an item!"
 });
 
 const defaultItems=[item1,item2,item3];
@@ -46,7 +45,7 @@ const List=mongoose.model("List",listSchema);
 
 
 app.get("/", function(req, res){
-  Item.find({},function(err,foundItems){ //find se jo bhi items milenge for store honge foundItems mei which will be an array
+  Item.find({},function(err,foundItems){ 
     if(foundItems.length===0){
           Item.insertMany(defaultItems,function(err){
           if(err){
@@ -55,7 +54,7 @@ app.get("/", function(req, res){
             console.log("Success!");
           }
         });
-        res.redirect("/"); //when items are added if []=0 then when we redirect, it will enter app.get --> else block, rendering the list of items in the array
+        res.redirect("/"); 
     } else {
       res.render("list",{listTitle:"Today",newListItems:foundItems});
     }
@@ -66,7 +65,7 @@ app.get("/", function(req, res){
 
 app.get("/:customListName",function(req,res){
   const customListName= _.capitalize(req.params.customListName);
-  List.findOne({name:customListName},function(err,foundList){ //here we just get an object bact which will be foundList, because it's findOne not find
+  List.findOne({name:customListName},function(err,foundList){ 
     if(!err){
       if(!foundList){
         //Create a new list
@@ -91,7 +90,7 @@ app.get("/:customListName",function(req,res){
 app.post("/",function(req,res){
   
   const itemName=req.body.newitem;
-  const listName=req.body.list; //value of the button name list which is the list title of specific list user entered
+  const listName=req.body.list; 
   const item=new Item({
     name:itemName
   });
