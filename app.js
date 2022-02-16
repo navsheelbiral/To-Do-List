@@ -4,9 +4,8 @@ const mongoose = require("mongoose");
 const _ =require("lodash");
 const app = express();
 
-// const items=[]; //global variable since used in post request
-// const workItems=[];
-app.set("view engine","ejs"); //always place it below const app=express(); wali line
+
+app.set("view engine","ejs"); 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
@@ -91,20 +90,30 @@ app.post("/",function(req,res){
   
   const itemName=req.body.newitem;
   const listName=req.body.list; 
+  const itemLength=itemName.length;
   const item=new Item({
     name:itemName
   });
 
-  if(listName==="Today"){
-    item.save();
-    res.redirect("/");
-  } else {
-    List.findOne({name:listName},function(err, foundList){
-      foundList.items.push(item);
-      foundList.save();
-      res.redirect("/"+listName);
-    });
-  }
+    if(listName==="Today"){
+      if(!itemLength===0){
+        item.save();
+      } else {
+        console.log("No value entered!");
+      }
+      res.redirect("/");
+    } else {
+      List.findOne({name:listName},function(err, foundList){
+        if(!itemLength===0){
+          foundList.items.push(item);
+          foundList.save();
+        } else {
+          console.log("No value entered!");
+        }
+        
+        res.redirect("/"+listName);
+      });
+    }  
   
 });
 
