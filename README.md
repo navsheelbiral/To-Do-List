@@ -1,4 +1,4 @@
-<h1> <a href="https://secure-headland-50733.herokuapp.com/"> To-Do List </a> </h1>
+<h1> <a href="https://secure-headland-50733.herokuapp.com/"> 📃 To-Do List </a> </h1>
 <h2> This <i> customizable </i> To-Do List is created using: </h2>
 <ul>
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
